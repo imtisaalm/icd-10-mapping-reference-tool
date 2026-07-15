@@ -1,0 +1,16 @@
+record_id,encounter_date,diagnosis_code,notes
+R0001,2026-01-05,I50.9,canonical code
+R0002,2026-01-06,i10,lowercase entry
+R0003,2026-01-07,E119,missing decimal point
+R0004,2026-01-08, J45.909 ,surrounding whitespace
+R0005,2026-01-09,E11.,trailing decimal point
+R0006,2026-01-10,I50,category header - too general to submit
+R0007,2026-01-11,I99.99,structurally plausible but not a real code
+R0008,2026-01-12,HELLO,not a code
+R0009,2026-01-13,,missing value
+R0010,2026-01-14,I50.9; E11.9,two codes in one field
+R0011,2026-01-15,C4A.0,letter in third position
+R0012,2026-01-16,QA0.0101,FY2026 letter-second-character code
+R0013,2026-01-17,S72.001A,7-character injury code
+R0014,2026-01-18,s72001a,same code lowercased without decimal
+R0015,2026-01-19,I5.09,decimal point in the wrong place

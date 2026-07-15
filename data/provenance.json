@@ -1,0 +1,15 @@
+{
+  "classification": "ICD-10-CM",
+  "release": "FY2026 (effective October 1, 2025 – September 30, 2026)",
+  "source": "CDC / National Center for Health Statistics (NCHS)",
+  "sourceUrls": [
+    "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2026/icd10cm-Code%20Descriptions-2026.zip",
+    "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2026/icd10cm-table%20and%20index-2026.zip"
+  ],
+  "license": "US federal government work (public domain). See https://www.cdc.gov/nchs/icd/icd-10-cm/index.html",
+  "retrievedAt": "2026-07-14",
+  "files": [
+    "icd10cm-order-2026.txt",
+    "icd10cm-chapters-2026.json"
+  ]
+}

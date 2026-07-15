@@ -2,12 +2,7 @@
 
 A reproducible utility for searching and validating standardized diagnosis codes in
 healthcare datasets. Version 1 supports **ICD-10-CM FY2026**, using only the official
-CDC/NCHS release files — no invented codes, descriptions, or hierarchy.
-
-> Reference and research-data preparation tool only. Not a diagnostic tool and not an
-> authority for billing or coding decisions.
-
-## The problem it addresses
+CDC/NCHS release files.
 
 Diagnosis-code columns in real-world healthcare datasets accumulate formatting drift:
 mixed case (`i50.9`), missing decimal points (`E119`), stray whitespace, several codes
@@ -37,10 +32,6 @@ ambiguous values are flagged — never silently corrected.
 - **Reference information** — every page footer and every export names the
   classification, release, source, and retrieval date.
 
-## Screenshots
-
-<!-- Screenshots to be added: home page, lookup result with hierarchy, batch validation summary. -->
-
 ## Technical architecture
 
 - **Next.js (App Router) + TypeScript**, styled with Tailwind CSS.
@@ -56,8 +47,6 @@ ambiguous values are flagged — never silently corrected.
   server-side; the browser never loads the full dataset.
 - **Batch validation** parses CSV files in the browser (PapaParse); only the selected
   code column is sent to the server, in chunks, and processed in memory.
-- No database, no authentication, no external APIs, no secrets. There is no `.env`
-  to configure.
 
 The data model is classification-agnostic (`system` + `version` accompany every
 result), so a second classification such as ICD-10-CA could be added as another
@@ -80,11 +69,6 @@ Source: <https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/202
 The exact provenance is recorded in [`data/provenance.json`](data/provenance.json).
 Running `npm run fetch-data` re-downloads the same release from the CDC server and
 rebuilds `data/` deterministically, so the dataset can be verified by anyone.
-
-## Validation methodology
-
-Summarized here; the full write-up is on the in-app **Methodology** page and in
-[`docs/methodology.md`](docs/methodology.md).
 
 Safe normalizations (always reported, never silent):
 
@@ -114,8 +98,7 @@ submission but identified (`match_type: header`) with the header's official desc
   codes file exactly (74,719 codes in FY2026).
 - The decimal point in an ICD-10-CM code always follows the third character, making
   dotless input unambiguous to restore.
-- A field containing several code-like tokens is a data-quality problem to report,
-  not to resolve.
+- A field containing several code-like tokens is a data-quality problem to report
 - Chapter and block membership are taken from the nesting in the official tabular
   XML, not computed from code ranges (this matters for codes such as `C4A`, which
   official ordering places between `C43` and `C44`).
@@ -219,20 +202,3 @@ Summary report (JSON):
   "classification_version": "FY2026"
 }
 ```
-
-## Future improvements
-
-- **ICD-10-CA support** — the data layer is classification-neutral; adding ICD-10-CA
-  requires a licensed CIHI dataset, a second loader, and a classification selector in
-  the UI. Cross-classification mapping would be a separate, clearly labelled feature.
-- Support for multiple ICD-10-CM releases side by side (e.g. validate a 2019 dataset
-  against FY2019).
-- Optional detection of codes that were valid in a previous release ("retired code"
-  hints) — as information, never as automatic correction.
-- Column-level profiling (most frequent invalid values, duplicate rows).
-- Browsable chapter/block index pages.
-
-## License
-
-Application code: [MIT](LICENSE). The ICD-10-CM reference data in `data/` is a US
-federal government work (public domain); see `data/provenance.json`.
